@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>具名插槽</title>
+    <script src="js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <app></app>
+    </div>
+    <script>
+      //只要匹配到slot标签的name值 template中的内容就会被插入到插槽中
+      Vue.component("MBtn", {
+        //具名插槽（包裹在template标签中）
+        template: `
+                <button>
+                    <slot name='login'></slot>
+                    <slot name='submit'></slot> 
+                    <slot name='register'></slot>
+                </button>
+            `,
+      });
+      const app = {
+        data() {
+          return {
+            title: "老爹",
+          };
+        }, //按钮出现的顺序和插槽无关，只和按钮出现的先后有关
+        template: `
+            <div>
+                <MBtn>
+                    <template slot='submit'>
+                        <a href='#'>提交</a>
+                    </template>
+                </MBtn>
+                <MBtn>
+                    <template slot='login'>
+                        <a href='#'>登录</a>
+                    </template>
+                </MBtn>
+                <MBtn>
+                    <template slot='register'>
+                        <a href='#'>注册</a>
+                    </template>
+                </MBtn>
+            </div>
+            `,
+      };
+      new Vue({
+        el: "#app",
+        data: {
+          msg: "你好 世界",
+        },
+        components: {
+          app,
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>匿名插槽</title>
+    <script src="js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <app></app>
+    </div>
+    <script>
+      //插槽用slot标签
+      Vue.component("MBtn", {
+        template: `//匿名插槽
+                <button>
+                    <slot></slot>
+                </button>
+            `,
+      });
+      const app = {
+        data() {
+          return {
+            title: "老爹",
+          };
+        },
+        template: `
+            <div>
+                <MBtn><a href='#'>登录</a></MBtn>
+                <MBtn><a href='#'>注册</a></MBtn>
+            </div>
+            `,
+      };
+      new Vue({
+        el: "#app",
+        data: {
+          msg: "你好 世界",
+        },
+        components: {
+          app,
+        },
+      });
+    </script>
+  </body>
+</html>

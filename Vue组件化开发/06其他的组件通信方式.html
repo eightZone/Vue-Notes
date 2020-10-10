@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>其他的组件通信</title>
+    <script src="js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <app></app>
+    </div>
+    <script>
+      //其他的组件通信
+      //provide 和 inject
+      //   父组件 provide 来提供变量，
+      //   然后子组件中通过inject来注入变量无论组件嵌套多深，都能取到变量
+
+      //$parent     寻找父组件
+      //$children   寻找子组件
+      Vue.component("B", {
+        data() {
+          return {
+            count: 0,
+          };
+        },
+        inject: ["msg"],
+        template: `
+            <div>{{msg}}</div>
+        `,
+        created() {
+          console.log(this.msg);
+        },
+      });
+
+      Vue.component("A", {
+        data() {
+          return {};
+        },
+        template: `
+            <div>
+                <B></B>
+            </div>
+        `,
+        created() {
+          console.log(this.$parent.title);
+          //   console.log(this.$children);
+        },
+      });
+
+      const app = {
+        data() {
+          return {
+            title: "老爹",
+          };
+        },
+        provide() {
+          return {
+            msg: "老爹的数据",
+          };
+        },
+        template: `
+            <div>
+                <A></A>
+            </div>
+            `,
+      };
+      new Vue({
+        el: "#app",
+        data: {
+          msg: "你好 世界",
+        },
+        components: {
+          app,
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>具名插槽</title>
+    <script src="js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <app></app>
+    </div>
+    <script>
+      const todoList = {
+        data() {
+          return {};
+        },
+        props: {
+          todos: Array,
+          defaultValue: [],
+        },
+        template: `
+            <ul>
+                <li v-for='item in todos' :key='item.id'>
+                    <slot :itemValue='item'>
+                    </slot>
+                    {{item.title}}
+                </li>
+            </ul>
+        `,
+      };
+
+      const app = {
+        data() {
+          return {
+            todoList: [
+              {
+                title: "周泽康",
+                isComplate: true,
+                id: 1,
+              },
+              {
+                title: "吴建超",
+                isComplate: false,
+                id: 22,
+              },
+              {
+                title: "黄欢",
+                isComplate: false,
+                id: 3,
+              },
+              {
+                title: "陈童",
+                isComplate: true,
+                id: 4,
+              },
+            ],
+          };
+        },
+        components: {
+          todoList,
+        },
+        template: `
+            <todoList :todos='todoList'>
+                <template v-slot='data'>
+                    <input type='checkbox' v-model='data.itemValue.isCompalte'>
+                </template>
+            </todoList>
+        `,
+      };
+      new Vue({
+        el: "#app",
+        data: {
+          msg: "你好 世界",
+        },
+        components: {
+          app,
+        },
+      });
+    </script>
+  </body>
+</html>

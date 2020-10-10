@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>对象的变更检测</title>
+  </head>
+  <body>
+    <div id="app">
+      <h3>{{user.name}},{{user.age}},{{user.phone}}</h3>
+      <button @click="handleAdd">添加</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      //vue不能检测对象属性的添加和删除
+      //如果要想添加和删除，必须用vue.$set(abject,key,value)方法对对象中添加当前的属性
+      new Vue({
+        el: "#app",
+        data: {
+          user: {},
+        },
+        methods: {
+          handleAdd() {
+            //vue.$set(abject,key,value)添加响应式属性
+            //this.user.age = 20;
+            //this.$set(this.user, "age", 20);
+            this.user = Object.assign({}, this.user, {
+              //es6中的方法，添加多条响应式属性
+              age: 20,
+              phone: 13545909307,
+            });
+          },
+        },
+        created() {
+          setTimeout(() => {
+            this.user = {
+              name: "周泽康",
+            };
+          }, 1250);
+        },
+      });
+    </script>
+  </body>
+</html>

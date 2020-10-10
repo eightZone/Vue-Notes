@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件通信</title>
+    <script src="js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <app></app>
+    </div>
+    <script>
+      //父传子：通过props进行通信
+      //1.在子组件中能够声明props接受在父组件中挂载的属性
+      //2.在子组件的template中任意使用
+      //3.在父组件中绑定自定义的属性
+      Vue.component("Child", {
+        template: `
+            <div>
+                <h3>我是一个子组件</h3>
+                <h3>{{DataName}}</h3>
+            </div>
+            `,
+        props: ["DataName"], //1.通过props取名字，在组件中通过绑定传值   ：DataName='msg'
+      });
+      // 创建局部组件
+      const app = {
+        data() {
+          return {
+            msg: "我是父组件传进来的值",
+          };
+        },
+        template: ` 
+            <div>
+                <Child :DataName='msg'></Child>
+            </div>
+            `,
+      };
+
+      new Vue({
+        el: "#app",
+        data: {
+          msg: "你好 世界",
+        },
+        components: {
+          app,
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>异步组件加载</title>
+  </head>
+  <body>
+    <div id="app">
+      <App></App>
+    </div>
+    <script src="js/vue.js"></script>
+    <script type="module">
+      const App = {
+        data() {
+          return {
+            IsShow: false,
+          };
+        },
+        methods: {
+          asyncLoad() {
+            this.IsShow = !this.IsShow;
+          },
+        },
+        components: {
+          Test: () => import("Test.js"),
+        },
+        template: `
+        <div>
+            <button @click='asyncLoad'>按钮</button>
+            <Test v-if='IsShow'></Test>
+        </div>
+        `,
+      };
+      new Vue({
+        el: "#app",
+        data: {},
+        components: {
+          App,
+        },
+      });
+    </script>
+  </body>
+</html>

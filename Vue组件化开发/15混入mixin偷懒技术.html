@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>混入mixin偷懒技术</title>
+  </head>
+  <body>
+    <div id="app">
+      <h3>{{msg}}</h3>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      //mixin来分发vue组件中的可复用功能,若属性重名，则就近原则
+      const myMixin = {
+        data() {
+          return {
+            msg: "123",
+          };
+        },
+        created() {
+          this.sayhello();
+        },
+        methods: {
+          sayhello() {
+            console.log("hello mixin");
+          },
+        },
+      };
+      new Vue({
+        el: "#app",
+        data: {
+          title: "周泽康",
+        },
+        mixins: [myMixin],
+        created() {
+          console.log(1111);
+        },
+      });
+    </script>
+  </body>
+</html>

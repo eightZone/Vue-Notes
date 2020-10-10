@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 3.使用子组件 -->
+      <App></App>
+    </div>
+  </body>
+  <script>
+    // 1.创建组件
+    // 2.挂载子组件
+    // 3.使用子组件
+    const App = {
+      //创建App组件 html+css+js
+      //注意：在组件中这个data必须是一个函数，返回一个对象
+      data() {
+        return {
+          msg: "我是App组件",
+        };
+      },
+      //template里面的内容必须在一个闭合的标签中
+      template: `
+            <div>
+              <h3>{{msg}}</h3>
+              <button @click='handleClick'>按钮</button>
+            </div>
+            `,
+      methods: {
+        handleClick() {
+          this.msg = "局部组件";
+        },
+        computed: {
+          //也可以写计算属性
+        },
+      },
+    };
+    new Vue({
+      el: "#app",
+      data: {},
+      components: {
+        //2.挂载子组件
+        App,
+      },
+    });
+  </script>
+</html>

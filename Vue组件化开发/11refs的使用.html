@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>refs的使用</title>
+  </head>
+  <body>
+    <div id="app">
+      <App></App>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      const Test = {
+        data() {
+          return {
+            msg: "周泽康",
+          };
+        },
+        template: `
+            <div>
+                <h3>{{msg}}</h3>
+            </div>
+            `,
+      };
+      const App = {
+        data() {
+          return {};
+        },
+        mounted() {
+          //如果给标签添加ref，获取的就是真实的DOM节点
+          //如果给子组件添加ref，获取的是当前子组件对象
+          console.log(this.$refs.btn);
+          this.$refs.input.focus(); //加载页面自动获取焦点
+          console.log(this.$refs.test);
+        },
+        template: `
+        <div>
+            <Test ref='test'></Test>
+            <input type="text" ref='input'>
+            <button ref='btn'>按钮</button>
+        </div>
+        `,
+        components: {
+          Test,
+        },
+      };
+
+      new Vue({
+        el: "#app",
+        data: {},
+        components: {
+          App,
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NextTick的使用</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "周泽康",
+        },
+        template: `
+        <div>
+            {{msg}}
+        </div>
+        `,
+      });
+      vm.msg = "New Msg";
+      //异步更新队列，当你修改数据时，当前的实例组件不会立即重新渲染
+      console.log(vm.$el.textContent);
+      //为例数据变化等待之后等待vue完成更新dom，可以再数据变化之后立即使用vue.nextTick，在当前的回调函数中，能获取最新的dom
+      Vue.nextTick(() => {
+        //当我们刷新队列时，组件会在下一个事件（nextTick）中进行更新
+        console.log(vm.$el.textContent);
+      });
+    </script>
+  </body>
+</html>

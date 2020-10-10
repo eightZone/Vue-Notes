@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件通信</title>
+    <script src="js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <app></app>
+    </div>
+    <script>
+      //子传父
+      //在父组件中绑定自定义的事件
+      //在子组件中触发原生的事件，在事件函数中，通过this.$emit触发自定义的事件
+      Vue.component("Child", {
+        template: `
+            <div>
+                <h3>我是一个子组件</h3>
+                <h3>{{DataName}}</h3>
+                <input type='text' @input='handleInput'/>
+            </div>
+            `,
+        props: ["DataName"],
+        methods: {
+          handleInput(e) {
+            const val = e.target.value;
+            this.$emit("inputHandler", val);
+          },
+        },
+      });
+      // 创建局部组件
+      const app = {
+        data() {
+          return {
+            msg: "我是父组件传进来的值",
+            newVal: "",
+          };
+        },
+        template: ` 
+            <div>
+                <div class="father">
+                数据：{{newVal}}
+                </div>
+                <Child :DataName='msg' @inputHandler='input'></Child>
+            </div>
+            `,
+        methods: {
+          input(newVal) {
+            this.newVal = newVal;
+          },
+        },
+      };
+
+      new Vue({
+        el: "#app",
+        data: {
+          msg: "你好 世界",
+        },
+        components: {
+          app,
+        },
+      });
+    </script>
+  </body>
+</html>
