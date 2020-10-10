@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>03v-if和v-show</title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- v-if  v-else v-else-if  当为false，直接删除整个div-->
+			<!-- 初始化没有渲染开销，有更高的切换开销 -->
+			<!-- 当页面切换频繁少时，用v-if,例如登录注册页面 -->
+			<div v-if="IsShow">
+				显示
+			</div>
+			<div v-else>
+				隐藏
+			</div>
+			
+			<!-- v-show后面跟的是布尔型 当为false，则添加display：none 改变样式-->
+			<!-- 初始化渲染开销大 -->
+			<!-- 当页面切换频繁多时，用v-show -->
+			<h3 v-show="show">
+				你好世界
+			</h3>
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el:"#app",
+				data:{
+					IsShow:Math.random()>0.5,
+					show:true
+				}
+			})
+		</script>
+	</body>
+</html>

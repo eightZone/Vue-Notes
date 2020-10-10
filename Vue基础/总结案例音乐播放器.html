@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>音乐播放器</title>
+    <script src="js/vue.js"></script>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      ul {
+        list-style: none;
+      }
+      ul li {
+        margin: 20px 20px;
+        padding: 10px 5px;
+        border-radius: 5px;
+      }
+      ul li.active {
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- ended歌曲播放完后自动播放下一首 -->
+      <audio
+        :src="getCurrentSrc"
+        controls
+        autoplay
+        @ended="handleEnded"
+      ></audio>
+      <ul>
+        <li
+          :class="{active:index===currentIndex}"
+          v-for="(item,index) in musicData"
+          :key="item.id"
+          @click="handleClick(index)"
+        >
+          <h2>{{item.id}}-歌名:{{item.name}}</h2>
+          <p>{{item.author}}</p>
+        </li>
+      </ul>
+      <button @click="handleNext">下一首</button>
+    </div>
+    <script>
+      const musicData = [
+        {
+          id: 1,
+          name: "马步谣",
+          author: "双笙",
+          url: "music/双笙 - 马步谣.mp3",
+        },
+        {
+          id: 2,
+          name: "成长学",
+          author: "西瓜JUN",
+          url: "music/西瓜JUN - 成长学.mp3",
+        },
+        {
+          id: 3,
+          name: "东风志",
+          author: "Aki阿杰",
+          url: "music/Aki阿杰 - 东风志.mp3",
+        },
+        {
+          id: 4,
+          name: "捉迷藏（中文版）（翻自 T-ara）",
+          author: "MissMass",
+          url: "music/MissMass - 捉迷藏（中文版）（翻自 T-ara）.mp3",
+        },
+      ];
+      new Vue({
+        el: "#app",
+        data: {
+          musicData,
+          currentIndex: 0,
+        },
+        computed: {
+          getCurrentSrc() {
+            return this.musicData[this.currentIndex].url;
+          },
+        },
+        methods: {
+          handleClick(index) {
+            this.currentIndex = index;
+          },
+          handleEnded() {
+            // 自动播放下一首
+            this.handleNext();
+          },
+          handleNext() {
+            this.currentIndex++;
+            if (this.currentIndex === this.musicData.length) {
+              this.currentIndex = 0;
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

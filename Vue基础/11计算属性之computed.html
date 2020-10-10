@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computed计算属性</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{reverseMsg}}
+        <h3>{{fullName}}</h3>
+        <button @click='handleClick'>改变</button>
+    </div>
+    <!-- 
+        计算属性最大的优点:产生缓存,如果数据没有发生变化,直接从缓存中取
+    -->
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello world',
+                fName: '周',
+                lName: '杰伦'
+            },
+            methods: {
+                handleClick() {
+                    this.msg = '计算属性Computed'
+                    this.lName = '婕伦'
+                }
+            },
+            computed: {
+                // computed默认只有getter方法
+                reverseMsg: function () {
+                    return this.msg.split('').reverse().join('')
+                },
+                fullName: function () {
+                    return this.fName + this.lName
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件修饰符</title>
+		<!-- v-on绑定DOM事件 -->
+		<style type="text/css">
+			.box{
+				height: 200px;
+				width: 200px;
+				background-color: red;
+			}
+			.active{
+				background-color: green;
+			}
+		</style>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!-- 
+		v-on:stop:阻止事件继续执行
+		v-on.prevent:阻止默认事件
+		v-on.vapture:阻止捕获
+		v-on.self:阻止当前自己
+		v-on.once:点击事件只会触发一次 
+		-->
+		
+		<!-- 
+		按键码 对键盘的操作
+		keycode码
+		v-on:keyup.13="submit"  后面跟事件
+		.enter
+		.tab
+		.delete
+		.esc
+		.space
+		.up
+		.down
+		.left
+		.right
+		-->
+		<div id="app">
+			<h3>{{num}}</h3>
+			<button v-on:click.once="handleClick">+1</button>
+			<div class="box" :class="{active:isActive}"></div>
+			<button @click='changeClick'>切换</button>
+		</div>
+		<script type="text/javascript">
+			// 监听事件的好处
+			// 1.扫一眼html模板,便能轻松定位java script代码里对应的方法。
+			// 2.无须在javascript中手动绑定事件,viewModel代码可以是非常纯粹的逻辑,和DOM完全解耦,,便于测试
+			// 3.当一个ViewModel被销毁时，所有的事件会自动被删除
+			new Vue({
+				el:'#app',
+				data:{
+					num:0,
+					isActive:false
+				},
+				methods:{
+					handleClick(){
+						this.num+=1;
+					},
+					changeClick(){
+						this.isActive=!this.isActive;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

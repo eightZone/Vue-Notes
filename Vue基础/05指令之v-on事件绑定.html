@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-on指令</title>
+		<!-- v-on绑定DOM事件 -->
+		<style type="text/css">
+			.box{
+				height: 200px;
+				width: 200px;
+				background-color: red;
+			}
+			.active{
+				background-color: green;
+			}
+			
+			.imgs{
+				display: none;
+			}
+			.img{
+				width: 200px;
+				height: 200px;
+				background-color: #008000;
+				display: block;
+			}
+		</style>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h3>{{num}}</h3>
+			<button v-on:click="handleClick">+1</button>
+			<!-- v-on:click="num+=1" 直接跟表达式 -->
+			<!-- v-on:click="handleClick" 跟事件名，在methods里面写事件 -->
+			<div class="box" :class="{active:isActive}"></div>
+			<button @click='changeClick'>切换</button>
+			<!-- v-on:click=''简写为@click='' -->
+			
+			<!-- div的显示和隐藏 -->
+			<div class="imgs" v-bind:class="{img:isimg}"></div>
+			<button v-on:click="isShow">显示</button>
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el:'#app',
+				data:{
+					num:0,
+					isActive:false,
+					isimg:false
+				},
+				methods:{
+					handleClick(){
+						this.num+=1;
+					},
+					changeClick(){
+						// 取反
+						this.isActive=!this.isActive;
+					},isShow(){
+						this.isimg=!this.isimg;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

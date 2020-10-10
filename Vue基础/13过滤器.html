@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{price | myPrice('$')}}
+        <h3>{{msg | myReverse}}</h3>
+    </div>
+    <div class="opp"></div>
+    <script>
+        //为数据添油加醋
+        //$10
+        //创建全局过滤器，创建一次，在各个组件中都能使用
+        Vue.filter('myReverse',(val)=>{
+            return val.split('').reverse().join('');
+        })
+        
+        new Vue({
+            el: '#app',
+            data: {
+                msg:'hello 过滤器',
+                price: 10
+            },
+            methods:{
+                newName:function(){
+                    
+                }
+            },
+            filters: {//局部过滤器,只能在局部中使用
+                myPrice: function (price,a) {
+                    // myPrice过滤器的名字
+                    // console.log(price);
+                    return a+price;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-bind指令</title>
+		<style type="text/css">
+			.active{
+				color: red;
+			}
+		</style>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!-- 绑定指令 -->
+		<!-- v-bind:src 简写形式  :src -->
+		<div id="app">
+			<a v-bind:href="res.url" v-bind:title="res.title">{{res.name}}</a>
+			<img :src="imgSrc" alt="">
+			<h3 v-bind:class="{active:isActive}">v-bind的用法</h3>
+			<!-- active:isActive 如果isActive为true，则给h3标签添加一个类名class="active" -->
+			
+			<h4 :aaa="res.url"></h4>
+			<!-- 也可以绑定自定义属性 -->
+			
+			<h4 :style='{color:isColor,fontSize:fontSize+"px"}'>你好世界</h4>
+			<!-- 行内样式的控制 -->
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el:"#app",
+				data:{
+					res:{
+						title:'百度一下',
+						name:'百度',
+						url:'https://www.baidu.com'
+					},
+					imgSrc:'img/1.jpg',
+					isActive:true,
+					isColor:'green',
+					fontSize:30
+				}
+			})
+		</script>
+	</body>
+</html>

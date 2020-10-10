@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-for能遍历数组，还能遍历对象 -->
+        <div>
+            <ul>
+                <!-- 在使用v-for的时候给每一个元素添加属性 :key=''  
+                如果有id则绑定id,没有id则绑定index
+                给Vue一个提示，追踪每一个节点的身份，重新排序现有元素
+                -->
+                <!-- v-bind:key='item.id' -->
+                <li v-for="(item,index) in menus" :key='item.id'>
+                    <!-- 当前的索引则为（item,index）in menus -->
+                    <h3>{{index}} - id:{{item.id}}</h3>
+                    <h3>name:{{item.name}}</h3>
+                </li>
+                <ol>
+                    <!-- <li v-for="val in obj">{{val}}</li> -->
+                    <li v-for="(val,key) in obj">{{key}} - {{val}}</li>
+                </ol>
+            </ul>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                menus: [
+                    { id: 1, name: 'Index1' },
+                    { id: 2, name: 'Index2' },
+                    { id: 3, name: 'Index3' },
+                    { id: 4, name: 'Index4' }
+                ],
+                obj:{
+                title: 'Vue框架',
+                author: '1223123'
+            }
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

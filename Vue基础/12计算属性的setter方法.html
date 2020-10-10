@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性的setter方法</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{content}}
+        <input type="text" v-model='content' @input='handleInput'>
+        <button @click='handleClick'>提交</button>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                msg: ''
+            },
+            methods: {
+                handleInput: function (event) {
+                    const { value } = event.target;
+                    this.content = value;
+                },
+                handleClick:function(){
+                    if(this.content){
+                        console.log(this.content);
+                    }
+                }
+            },
+            computed: {
+                content: {
+                    set: function (newV) {
+                        this.msg=newV;
+                    },
+                    get: function () {
+                        return this.msg;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
